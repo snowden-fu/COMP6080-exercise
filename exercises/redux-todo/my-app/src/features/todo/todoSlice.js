@@ -7,7 +7,8 @@ export const todoSlice = createSlice(
             isChecked: false
         },
         reducers:{
-            
+            // todo add reducers
         }
     }
 )
+export default todoSlice.reducer;
