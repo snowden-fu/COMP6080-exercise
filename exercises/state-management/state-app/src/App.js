@@ -38,13 +38,14 @@ function reducer(state, action) {
 }
 function VoteCounter() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const upvoteHandler = () => dispatch({ type: "upvote" });
   return (
     <>
     <h1>Value {state.votes}</h1>
     {/* todo upvote and downvote is recognized 
     type error is weird
     */}
-    <button onClick={() => dispatch({type: 'upvote'})}>Upvote</button>
+    <button onClick={upvoteHandler}>Upvote</button>
       <button onClick={() => dispatch({type: 'downvote'})}>Downvote</button>
     </>
     
