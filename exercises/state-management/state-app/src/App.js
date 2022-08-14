@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import {useReducer} from 'react'
+import { useReducer } from 'react';
 function App() {
   return (
     <div className="App">
