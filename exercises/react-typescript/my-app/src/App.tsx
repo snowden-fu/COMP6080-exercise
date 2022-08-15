@@ -1,5 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
+import { useState } from "react";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
           quick start for react in typescript
         </a>
       </header>
-      <TodoList todoList={todoData}/>
+      <TodoList todoList={todoData} />
     </div>
   );
 }
@@ -36,13 +37,20 @@ type TodoItemProps = {
   todo: Todo;
 };
 function TodoItem({ todo }: TodoItemProps) {
+  const [checkState, setCheckState] = useState(todo.isDone);
+  function handleCheck(e: React.ChangeEvent<HTMLInputElement>) {
+    console.log(checkState);
+
+    setCheckState(!checkState);
+  }
   return (
     <>
       <input
         type={"checkbox"}
         id={todo.id.toString()}
         name={todo.id.toString()}
-        defaultChecked={todo.isDone}
+        checked={checkState}
+        onChange={handleCheck}
       />
       <label htmlFor={todo.id.toString()}>{todo.desc}</label>
       <br></br>
@@ -53,16 +61,9 @@ type TodoListProps = {
   todoList: Array<Todo>;
 };
 function TodoList({ todoList }: TodoListProps) {
-  return (
-    <>
-      {todoList.map((todo: Todo) => {
-        return (
-          <>
-          <TodoItem todo={todo} key={todo.id}/>
-          </>
-        );
-      })}
-    </>
-  );
+  let listItems = todoList.map((todo) => {
+    return <TodoItem todo={todo} key={todo.id} />;
+  });
+  return <ul>{listItems}</ul>;
 }
 export default App;
