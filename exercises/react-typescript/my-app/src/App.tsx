@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { useState } from "react";
+import { useReducer, useState } from "react";
 
 function App() {
   return (
@@ -20,6 +20,7 @@ function App() {
         </a>
       </header>
       <TodoList todoList={todoData} />
+      <VoteCounter/>
     </div>
   );
 }
@@ -65,5 +66,40 @@ function TodoList({ todoList }: TodoListProps) {
     return <TodoItem todo={todo} key={todo.id} />;
   });
   return <ul>{listItems}</ul>;
+}
+
+
+const initialState = { votes: 0 };
+interface VoteCounterAction{
+  type:string
+}
+interface VoteCounterState {
+  votes: number
+}
+function reducer(state: VoteCounterState, action:VoteCounterAction) {
+  switch (action.type) {
+    case 'upvote':
+      return {votes: state.votes + 1};
+    case 'downvote':
+      return {votes: state.votes - 1};
+    default:
+      throw new Error();
+  }
+}
+function VoteCounter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const upvoteHandler = () => dispatch({ type: "upvote" });
+  return (
+    <>
+    <h1>Value {state.votes}</h1>
+    {/* todo upvote and downvote is recognized 
+    type error is weird
+    */}
+    <button onClick={upvoteHandler}>Upvote</button>
+      <button onClick={() => dispatch({type: 'downvote'})}>Downvote</button>
+    </>
+    
+  )
+  
 }
 export default App;
