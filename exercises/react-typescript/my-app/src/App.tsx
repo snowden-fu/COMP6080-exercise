@@ -70,17 +70,21 @@ function TodoList({ todoList }: TodoListProps) {
 
 
 const initialState = { votes: 0 };
+enum VoteCounterActionType{
+  DOWNVOTE ='downvote',
+  UPVOTE = 'upvote'
+}
 interface VoteCounterAction{
-  type:string
+  type:VoteCounterActionType
 }
 interface VoteCounterState {
   votes: number
 }
 function reducer(state: VoteCounterState, action:VoteCounterAction) {
   switch (action.type) {
-    case 'upvote':
+    case VoteCounterActionType.UPVOTE:
       return {votes: state.votes + 1};
-    case 'downvote':
+    case VoteCounterActionType.DOWNVOTE:
       return {votes: state.votes - 1};
     default:
       throw new Error();
@@ -88,7 +92,7 @@ function reducer(state: VoteCounterState, action:VoteCounterAction) {
 }
 function VoteCounter() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const upvoteHandler = () => dispatch({ type: "upvote" });
+  const upvoteHandler = () => dispatch({ type: VoteCounterActionType.UPVOTE });
   return (
     <>
     <h1>Value {state.votes}</h1>
@@ -96,7 +100,7 @@ function VoteCounter() {
     type error is weird
     */}
     <button onClick={upvoteHandler}>Upvote</button>
-      <button onClick={() => dispatch({type: 'downvote'})}>Downvote</button>
+      <button onClick={() => dispatch({type: VoteCounterActionType.DOWNVOTE})}>Downvote</button>
     </>
     
   )
