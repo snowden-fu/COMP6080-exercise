@@ -2,13 +2,14 @@ import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
+import { Todo, TodoList } from './features/todo/Todo';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
+        
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
@@ -51,8 +52,17 @@ function App() {
           </a>
         </span>
       </header>
+      <main>
+      <Counter />
+      <TodoList todoList={todoData}/>
+      </main>
     </div>
   );
 }
+const todoData: Array<Todo> = [
+  { id: 1, desc: "coding", isDone: false },
+  { id: 2, desc: "coding2", isDone: false },
+  { id: 3, desc: "coding3", isDone: false },
+];
 
 export default App;

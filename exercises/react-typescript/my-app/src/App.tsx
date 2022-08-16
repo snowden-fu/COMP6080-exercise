@@ -24,6 +24,10 @@ function App() {
     </div>
   );
 }
+/**
+ * Todo List composed of TodoItem
+ * type todo
+ */
 interface Todo {
   id: number;
   desc: string;
@@ -68,7 +72,9 @@ function TodoList({ todoList }: TodoListProps) {
   return <ul>{listItems}</ul>;
 }
 
-
+/**
+ * vote counter component
+ */
 const initialState = { votes: 0 };
 enum VoteCounterActionType{
   DOWNVOTE ='downvote',
