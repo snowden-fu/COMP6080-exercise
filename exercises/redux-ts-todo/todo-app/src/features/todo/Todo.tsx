@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAppDispatch } from "../../app/hooks";
 
 /**
  * Todo List composed of TodoItem
@@ -20,6 +21,7 @@ function TodoItem({ todo }: TodoItemProps) {
 
     setCheckState(!checkState);
   }
+  const dispatch = useAppDispatch();
   return (
     <>
       <input
@@ -27,7 +29,7 @@ function TodoItem({ todo }: TodoItemProps) {
         id={todo.id.toString()}
         name={todo.id.toString()}
         checked={checkState}
-        onChange={handleCheck}
+        onChange={dispatch}
       />
       <label htmlFor={todo.id.toString()}>{todo.desc}</label>
       <br></br>

@@ -5,12 +5,12 @@ export const todoSlice = createSlice({
     name: 'todoChecked',
     initialState: initialTodoState,
     reducers:{
-        check:(state)=>{
-            state=true
+        checkOrUncheck:(state)=>{
+            state=!state
         },
-        uncheck: (state)=>{
-            state=false
-        }
     }
 })
+
+
+export const { checkOrUncheck } = todoSlice.actions;
 export default todoSlice.reducer
