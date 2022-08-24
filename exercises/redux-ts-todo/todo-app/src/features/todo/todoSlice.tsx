@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+// https://dev.to/codebucks/build-redux-react-todo-list-app-with-animations-using-framer-motion-1mp1
 const initialTodoState:boolean = false;
 export const todoSlice = createSlice({
     name: 'todoChecked',
