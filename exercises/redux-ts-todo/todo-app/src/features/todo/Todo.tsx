@@ -1,47 +1,78 @@
-import { useState } from "react";
-import { useAppDispatch } from "../../app/hooks";
+import React, { useState } from "react";
 
-/**
- * Todo List composed of TodoItem
- * type todo
- */
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { addTodos } from "./todoSlice";
 export interface Todo {
-  id: number;
-  desc: string;
-  isDone: boolean;
+  id: Number;
+  isCompleted: boolean;
+  desc: String;
 }
-
-type TodoItemProps = {
-  todo: Todo;
+type todoListProps = {
+  todos: Array<Todo>;
 };
-function TodoItem({ todo }: TodoItemProps) {
-  const [checkState, setCheckState] = useState(todo.isDone);
-  function handleCheck(e: React.ChangeEvent<HTMLInputElement>) {
-    console.log(checkState);
-
-    setCheckState(!checkState);
-  }
+const TodoInput = () => {
+  const [todo, setTodo] = useState("");
   const dispatch = useAppDispatch();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTodo(e.target.value);
+  };
+
+  return (
+    <div className="addTodos">
+      <input
+        type="text"
+        onChange={(e) => handleChange(e)}
+        className="todo-input"
+        value={todo}
+      />
+
+      <button
+        className="add-btn"
+        onClick={() => {
+          dispatch(addTodos(todo));
+        }}
+      >
+        Add
+      </button>
+      <br />
+    </div>
+  );
+};
+function TodoList(todoListProps: todoListProps) {
   return (
     <>
-      <input
-        type={"checkbox"}
-        id={todo.id.toString()}
-        name={todo.id.toString()}
-        checked={checkState}
-        onChange={dispatch}
-      />
-      <label htmlFor={todo.id.toString()}>{todo.desc}</label>
-      <br></br>
+      {todoListProps.todos.map((todo) => {
+        return <TodoItem todoItem={todo} key={todo.id.toString()} />;
+      })}
     </>
   );
 }
-type TodoListProps = {
-  todoList: Array<Todo>;
+type todoProps = {
+  todoItem: Todo;
 };
-export function TodoList({ todoList }: TodoListProps) {
-  let listItems = todoList.map((todo) => {
-    return <TodoItem todo={todo} key={todo.id} />;
-  });
-  return <ul>{listItems}</ul>;
+function TodoItem(todoProps: todoProps) {
+  // custom checkbox https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_checkbox
+
+  return (
+    <label className="container">
+      {todoProps.todoItem.desc}
+      <input
+        type="checkbox"
+        checked={todoProps.todoItem.isCompleted}
+        // todo: update todo item when onChange
+        readOnly
+      />
+      <span className="checkmark"></span>
+    </label>
+  );
+}
+export function TodoApp() {
+  const todoSelected = useAppSelector((state) => state.todo);
+  return (
+    <div className="todoApp">
+      <TodoInput />
+      <TodoList todos={todoSelected} />
+    </div>
+  );
 }

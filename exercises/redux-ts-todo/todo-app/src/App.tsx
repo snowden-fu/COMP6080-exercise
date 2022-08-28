@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
-import { Todo, TodoList } from './features/todo/todo';
+import { Todo, TodoApp } from './features/todo/todo';
 
 function App() {
   return (
@@ -54,15 +54,15 @@ function App() {
       </header>
       <main>
       <Counter />
-      <TodoList todoList={todoData}/>
+      <TodoApp/>
       </main>
     </div>
   );
 }
-const todoData: Array<Todo> = [
-  { id: 1, desc: "coding", isDone: false },
-  { id: 2, desc: "coding2", isDone: false },
-  { id: 3, desc: "coding3", isDone: false },
+export const todoData: Array<Todo> = [
+  { id: 1, desc: "coding", isCompleted: false },
+  { id: 2, desc: "coding2", isCompleted: false },
+  { id: 3, desc: "coding3", isCompleted: false },
 ];
 
 export default App;
