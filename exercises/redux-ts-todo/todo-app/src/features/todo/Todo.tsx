@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { addTodos } from "./todoSlice";
+import { addTodos, completeTodo } from "./todoSlice";
 export interface Todo {
   id: Number;
   isCompleted: boolean;
@@ -53,16 +53,17 @@ type todoProps = {
 };
 function TodoItem(todoProps: todoProps) {
   // custom checkbox https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_checkbox
-
+  const dispatch = useAppDispatch();
   return (
     <label className="container">
-      {todoProps.todoItem.desc}
+      
       <input
         type="checkbox"
         checked={todoProps.todoItem.isCompleted}
         // todo: update todo item when onChange
-        readOnly
+        onChange={()=>{dispatch(completeTodo(todoProps.todoItem.id))}}
       />
+      {todoProps.todoItem.desc}
       <span className="checkmark"></span>
     </label>
   );

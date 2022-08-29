@@ -7,12 +7,25 @@ export const todoSlice = createSlice({
   initialState: initialTodoState,
   reducers: {
     addTodos: (state, action) => {
-      const newTodo:Todo = generateTodo(action.payload);
-    //   console.log(newTodo);
-      
+      const newTodo: Todo = generateTodo(action.payload);
+      //   console.log(newTodo);
+
       state.push(newTodo);
-    //   console.log(state.length);   
+      //   console.log(state.length);
       return state;
+    },
+    completeTodo: (state, action) => {
+      return state.map((i) => {
+        if (i.id === action.payload) {
+          const newTodo: Todo = {
+            ...i,
+            isCompleted: true,
+          };
+
+          return newTodo;
+        }
+        return i;
+      });
     },
   },
 });
@@ -25,5 +38,5 @@ function generateTodo(desc: String): Todo {
   };
 }
 
-export const { addTodos } = todoSlice.actions;
+export const { addTodos, completeTodo } = todoSlice.actions;
 export default todoSlice.reducer;
