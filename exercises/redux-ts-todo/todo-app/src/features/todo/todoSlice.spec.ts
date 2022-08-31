@@ -1,16 +1,14 @@
 import { Todo } from "./todo"
 import todoSlice from "./todoSlice";
 describe('todo reducer', () => {
-    const initialTestTodoState:Todo={
+    const TestedTodoState:Todo={
         id:Math.random()*100,
         isCompleted:false,
         desc: 'test todo'
     };
-    it('should intialize state',() => {
-        expect(todoSlice(undefined, { type: 'unknown' })).toEqual({
-          value: 0,
-          status: 'idle',
-        });
-      })
+    const initTodoState:Todo[] = todoSlice(undefined, { type: 'unknown' });
+    // console.log(initTodoState);
     
-})
+    it('should intialize state',() =>{
+      expect(initTodoState).toEqual<Todo[]>([]);
+    })});
