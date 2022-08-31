@@ -11,9 +11,12 @@ describe('counter reducer', () => {
     status: 'idle',
   };
   it('should handle initial state', () => {
-    expect(counterReducer(undefined, { type: 'unknown' })).toEqual({
-      value: 0,
-      status: 'idle',
+    const init_reducer:CounterState = counterReducer(undefined, { type: 'unknown' });
+    console.log(typeof init_reducer);
+    
+    expect(init_reducer).toEqual({
+      "value": 0,
+      "status": 'idle',
     });
   });
 
