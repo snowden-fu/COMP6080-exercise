@@ -31,6 +31,7 @@ const TodoInput = () => {
         className="add-btn"
         onClick={() => {
           dispatch(addTodos(todo));
+          setTodo('');
         }}
       >
         Add

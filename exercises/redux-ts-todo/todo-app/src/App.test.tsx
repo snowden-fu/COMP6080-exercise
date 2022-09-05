@@ -10,6 +10,7 @@ render(
       <App />
     </Provider>
   );
+  // 'learn/i' indicate regex including 'learn'
   const screenText = screen.getByText(/learn/i);
 
   expect(screenText).toBeInTheDocument();
