@@ -1,3 +1,13 @@
+
+import {
+  Button,
+  Checkbox,  
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  TextField,
+} from "@mui/material";
 import React, { useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -20,53 +30,60 @@ const TodoInput = () => {
 
   return (
     <div className="addTodos">
-      <input
-        type="text"
-        onChange={(e) => handleChange(e)}
-        className="todo-input"
+      <TextField
+        onInput={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
         value={todo}
+        variant="standard"
       />
-
-      <button
+      <Button
         className="add-btn"
         onClick={() => {
           dispatch(addTodos(todo));
-          setTodo('');
+          setTodo("");
         }}
+        variant="contained"
       >
         Add
-      </button>
+      </Button>
       <br />
     </div>
   );
 };
 function TodoList(todoListProps: todoListProps) {
   return (
-    <>
+    <List>
       {todoListProps.todos.map((todo) => {
         return <TodoItem todoItem={todo} key={todo.id.toString()} />;
       })}
-    </>
+    </List>
   );
 }
 type todoProps = {
   todoItem: Todo;
 };
 function TodoItem(todoProps: todoProps) {
-  // custom checkbox https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_checkbox
+  // https://mui.com/material-ui/react-list/#checkbox
   const dispatch = useAppDispatch();
   return (
-    <label className="container">
-      
-      <input
-        type="checkbox"
-        checked={todoProps.todoItem.isCompleted}
-        // todo: update todo item when onChange
-        onChange={()=>{dispatch(completeTodo(todoProps.todoItem.id))}}
+    <ListItem
+      className="container"
+      onChange={() => {
+        dispatch(completeTodo(todoProps.todoItem.id));
+      }}
+    >
+      <ListItemIcon>
+        <Checkbox
+          edge="start"
+          checked={todoProps.todoItem.isCompleted}
+          inputProps={{ "aria-labelledby": todoProps.todoItem.id.toString() }}
+        />
+      </ListItemIcon>
+
+      <ListItemText
+        id={todoProps.todoItem.id.toString()}
+        primary={todoProps.todoItem.desc}
       />
-      {todoProps.todoItem.desc}
-      <span className="checkmark"></span>
-    </label>
+    </ListItem>
   );
 }
 export function TodoApp() {
