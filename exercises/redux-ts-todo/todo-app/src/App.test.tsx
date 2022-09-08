@@ -3,6 +3,7 @@ import { render, screen} from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
 import App from './App';
+//https://stephencharlesweiss.com/jest-watch-mode
 
 test('renders learn react link', () => {
 render(
@@ -11,7 +12,7 @@ render(
     </Provider>
   );
   // 'learn/i' indicate regex including 'learn'
-  const screenText = screen.getByText(/learn/i);
+  const screenText = screen.getByText(/Edit/i);
 
   expect(screenText).toBeInTheDocument();
 });
