@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Todo } from "./todo";
+import { Todo } from "./Todo";
 // https://dev.to/codebucks/build-redux-react-todo-list-app-with-animations-using-framer-motion-1mp1
 const initialTodoState: Array<Todo> = [];
 export const todoSlice = createSlice({

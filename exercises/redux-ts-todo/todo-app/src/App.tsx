@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
-import { Todo, TodoApp } from './features/todo/todo';
+import { Todo, TodoApp } from './features/todo/Todo';
 
 function App() {
   return (
